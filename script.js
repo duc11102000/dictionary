@@ -15,7 +15,7 @@ btn.addEventListener('click', async () => {
      .then((data) =>{
         console.log(data);
         let html = `<h3>${input}</h3>`;
-        html += `<button onclick="playSound()">Audio</button>`
+        html += `<button onclick="playSound()">audio</button>`
         data[0].meanings.forEach((obj, index) => {
             if(obj.definitions.length > 0){
                 obj.definitions.forEach((a,b) => {
