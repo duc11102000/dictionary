@@ -7,17 +7,24 @@ function playSound() {
     sound.play();
 }
 
-btn.addEventListener('click', () => {
+btn.addEventListener('click', async () => {
     const input  = document.getElementById("input").value;
     
-    fetch(`${api}${input}`)
+    await fetch(`${api}${input}`)
      .then((response) => response.json())
      .then((data) =>{
         console.log(data);
+        let html = `<h3>${input}</h3>`;
+        html += `<button onclick="playSound()"></button>`
+        data[0].meanings.forEach((obj, index) => {
+            if(obj.definitions.length > 0){
+                obj.definitions.forEach((a,b) => {
+                    html += `<p>${a.definition}</p>`
+                })
+            }
+        })
         result.innerHTML = `
-        <h3>${input}</h3>
-        <button onclick="playSound()"></button>
-        <p>${data[0].meanings[0].definitions[0].definition}</p>
+        ${html}
         <p>${data[0].meanings[0].definitions[0].example}</p>`
         sound.setAttribute("src", `https:${data[0].phonetics[0].audio}`)
      })
